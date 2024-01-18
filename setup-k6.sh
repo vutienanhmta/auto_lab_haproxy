@@ -13,9 +13,18 @@ cat <<EOF | tee load-test.js
 import http from 'k6/http';
 import { sleep } from 'k6';
 
+export let options = {
+    stages: [
+        { duration: '30s', target: 100 }, // Tăng dần lên 100 người dùng trong 30 giây
+        { duration: '1m', target: 100 },  // Giữ 100 người dùng đồng thời trong 1 phút
+        { duration: '30s', target: 0 },   // Giảm dần về 0 người dùng trong 30 giây
+    ]
+};
+
 export default function () {
-  http.get('http://192.168.56.10'); // Địa chỉ của HAProxy
-  sleep(1);
+    let response = http.get('http://192.168.56.10'); // Địa chỉ của HAProxy
+    check(response, { 'status was 200': (r) => r.status === 200 });
+    sleep(1);
 }
 EOF
 
