@@ -1,8 +1,8 @@
-#!/bin/bash
+template web#!/bin/bash
 sudo apt-get update
 sudo apt-get install -y nginx
 
-# Đặt một trang web mẫu (thay thế bằng template của bạn)
+# Create template web
 cat <<EOF | sudo tee /var/www/html/index.html
 <!DOCTYPE html>
 <html>
