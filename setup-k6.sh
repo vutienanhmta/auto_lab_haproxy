@@ -2,13 +2,13 @@
 sudo apt-get update
 sudo apt-get install -y gnupg2
 
-# Thêm kho lưu trữ k6 và cài đặt k6
+# Install k6
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 379CE192D401AB61
 echo "deb https://dl.k6.io/deb stable main" | sudo tee /etc/apt/sources.list.d/k6.list
 sudo apt-get update
 sudo apt-get install -y k6
 
-# Đây là nơi bạn có thể thêm script kiểm thử tải của mình, ví dụ:
+# create file test
 cat <<EOF | tee load-test.js
 import http from 'k6/http';
 import { sleep } from 'k6';
@@ -28,6 +28,6 @@ export default function () {
 }
 EOF
 
-# Lệnh để chạy k6 (có thể chạy sau khi vagrant up hoàn tất)
+# Lệnh để chạy k6 
 # k6 run load-test.js
 
